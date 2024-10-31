@@ -36,10 +36,11 @@
 
 #include <arduino.h>
 #include <DHT.h>
+#include <MentorPort.h>
 
 #define DHTTYPE DHT22
 
-class MentorBitDHT22
+class MentorBitDHT22 : public MentorPort
 {
 
     public: 
@@ -48,10 +49,11 @@ class MentorBitDHT22
         
         float obtenerTemperatura();
         float obtenerHumedad();
+        void configPort(const Port& port) override;
 
     private:
 
-        uint8_t _dht_pin;
+        Port _port;
         DHT myDHT;
 };
 

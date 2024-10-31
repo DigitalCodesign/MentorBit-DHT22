@@ -33,9 +33,9 @@
 
 #include "MentorBitDHT22.h"
 
-MentorBitDHT22::MentorBitDHT22(uint8_t pin):myDHT(pin, DHT22){
+MentorBitDHT22::MentorBitDHT22(uint8_t pin = 0):myDHT(_port.gpios[1], DHT22){
     myDHT.begin();
-    _dht_pin = pin;
+    _port.gpios[1] = pin;
 }
 
 float MentorBitDHT22::obtenerTemperatura(){
@@ -50,3 +50,11 @@ float MentorBitDHT22::obtenerHumedad(){
     return valor;
 }
 
+void MentorBitDHT22::configPort(const Port& port) {
+
+    _port.type = port.type;
+    _port.location = port.location;
+    _port.gpios[0] = port.gpios[0];
+    _port.gpios[1] = port.gpios[1];
+
+}
