@@ -45,7 +45,7 @@ class MentorBitDHT22 : public MentorPort
 
     public: 
 
-        MentorBitDHT22(uint8_t pin);
+        MentorBitDHT22(uint8_t pin = 0);
         
         float obtenerTemperatura();
         float obtenerHumedad();
@@ -55,6 +55,9 @@ class MentorBitDHT22 : public MentorPort
 
         Port _port;
         DHT myDHT;
+
+        void _reiniciarDHT();
+
 };
 
 #endif
