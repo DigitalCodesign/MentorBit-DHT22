@@ -1,50 +1,63 @@
-# MentorBit-DetectorLluvia
+
+# MentorBit-DHT22
 
 ## Descripción
 
-Esta librería está específicamente diseñada para ser utilizada junto con el módulo **MentorBit Detector de Lluvia**. 
+Esta librería está construida por Digital Codesign para interactuar con el **Módulo DHT22**, diseñado principalmente para el kit educacional **MentorBit**. El **DHT22** es un sensor digital de temperatura y humedad, ideal para medir las condiciones ambientales.
 
-El **MentorBit Detector de Lluvia** es un sensor utilizado para detectar la presencia de lluvia mediante un umbral digital y una salida analógica. Esta librería permite interactuar fácilmente con el sensor y obtener lecturas de su estado.
+Puedes encontrar nuestro **MentorBit** y mucho más material de electrónica y robótica en nuestra tienda oficial: [https://digitalcodesign.com/shop](https://digitalcodesign.com/shop)
 
-Puedes encontrar nuestro Módulo MentorBit y mucho más material de electrónica y robótica en nuestra tienda oficial:  [https://digitalcodesign.com/shop](https://digitalcodesign.com/shop)
+## Modo de empleo
 
-## Métodos Principales
-
-- `MentorBitDetectorLluvia` → Constructor de la clase.
-- `obtenerLecturaDigital` → Obtiene un valor de **true** o **false** dependiendo de la presencia de lluvia. El umbral es ajustable con un potenciómetro.
-- `obtenerLecturaAnalogica` → Devuelve un valor analógico de 2 bytes que representa la intensidad de la lluvia detectada.
-
-## Constructor
+Una vez que tengamos la librería instalada desde el Arduino IDE, necesitamos incluir la librería con la siguiente línea:
 
 ```cpp
-MentorBitDetectorLluvia miModuloDetector(digital_pin, analog_pin);
+#include <MentorBitDHT22.h>
 ```
 
-Donde "digital_pin" y "analog_pin" son los puertos donde están conectadas ambas salidas del sensor que entregan las señales digital y analógica, respectivamente.
+### Constructor
 
-### Parámetros
-
-- `detector_pin`: Pin digital donde se conecta el sensor de lluvia (por defecto es 0).
-- `analog_detector_pin`: Pin analógico donde se conecta el sensor (por defecto es 0).
-
-## Métodos
-
-### `bool obtenerLecturaDigital()`
-
-Devuelve un valor booleano **true** o **false** dependiendo de si hay lluvia o no, basado en un umbral digital que se puede ajustar.
-
-#### Ejemplo de uso
+Una vez incluida la librería, usamos el constructor para crear el objeto del módulo **DHT22**, y definimos el pin al que está conectado el sensor:
 
 ```cpp
-bool lecturaDigital = detector.obtenerLecturaDigital();
+MentorBitDHT22 dht22(PIN_SENSOR);
 ```
 
-### `uint16_t obtenerLecturaAnalogica()`
+Donde `PIN_SENSOR` es el pin al que está conectado el sensor **DHT22**.
 
-Devuelve un valor analógico de 2 bytes que representa la intensidad de la lluvia.
+### Uso
 
-#### Ejemplo de uso
+Con el objeto `dht22` definido, podemos obtener la lectura de la temperatura y la humedad utilizando las funciones `obtenerTemperatura()` y `obtenerHumedad()`:
+
+#### Obtener Temperatura
 
 ```cpp
-uint16_t lecturaAnalogica = detector.obtenerLecturaAnalogica();
+float temperatura = dht22.obtenerTemperatura();
 ```
+
+Esta función devuelve el valor de la temperatura en grados Celsius.
+
+#### Obtener Humedad
+
+```cpp
+float humedad = dht22.obtenerHumedad();
+```
+
+Esta función devuelve el valor de la humedad en porcentaje.
+
+### Configuración de puertos
+
+Si deseas configurar puertos personalizados, puedes usar la función `configPort()` para asignar los pines y configuraciones de puertos que necesitas:
+
+```cpp
+Port port;
+port.gpios[0] = PIN_SENSOR;  // Pin de conexión
+dht22.configPort(port);
+```
+
+Donde `port` es un objeto de tipo `Port` que contiene las configuraciones necesarias.
+
+## Atributos
+
+- `PIN_SENSOR`: Define el pin al que está conectado el sensor **DHT22**.
+
