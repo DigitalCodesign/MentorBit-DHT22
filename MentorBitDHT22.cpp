@@ -61,10 +61,10 @@ void MentorBitDHT22::configPort(const Port& port) {
 
 }
 
-void MentorBitDHT11::_reiniciarDHT()
+void MentorBitDHT22::_reiniciarDHT()
 {
 
-    myDHT = DHT(_port.gpios[1], DHT11);
+    myDHT = DHT(_port.gpios[1], DHT22);
     myDHT.begin();
 
 }
