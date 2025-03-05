@@ -1,63 +1,67 @@
+# MentorBitDHT22
 
-# MentorBit-DHT22
+Librería para la lectura de temperatura y humedad utilizando el sensor DHT22 en módulos compatibles con MentorBit.
 
 ## Descripción
 
-Esta librería está construida por Digital Codesign para interactuar con el **Módulo DHT22**, diseñado principalmente para el kit educacional **MentorBit**. El **DHT22** es un sensor digital de temperatura y humedad, ideal para medir las condiciones ambientales.
+La librería `MentorBitDHT22` facilita la lectura de datos de temperatura y humedad relativa desde el sensor DHT22 (también conocido como AM2302) en módulos compatibles con MentorBit. Ofrece un rango de medición más amplio y una mayor precisión que el DHT11, siendo ideal para aplicaciones de monitoreo ambiental, estaciones meteorológicas y proyectos que requieren mediciones precisas de temperatura y humedad.
 
-Puedes encontrar nuestro **MentorBit** y mucho más material de electrónica y robótica en nuestra tienda oficial: [https://digitalcodesign.com/shop](https://digitalcodesign.com/shop)
+**Nota:** La librería depende de la librería `DHT.h`.
 
-## Modo de empleo
+## Modo de Empleo
 
-Una vez que tengamos la librería instalada desde el Arduino IDE, necesitamos incluir la librería con la siguiente línea:
+1.  **Instalación:**
+    * Abre el IDE compatible con MentorBit.
+    * Ve a "Herramientas" -> "Gestionar librerías..."
+    * Busca "MentorBitDHT22" e instálala.
+    * **Nota:** Asegúrate de que la librería `DHT.h` esté instalada.
 
-```cpp
-#include <MentorBitDHT22.h>
-```
+2.  **Ejemplo básico:**
+
+    ```c++
+    #include <MentorBitDHT22.h>
+
+    MentorBitDHT22 dht(2); // Sensor DHT22 conectado al pin 2
+
+    void setup() {
+      Serial.begin(9600);
+      Serial.println("Sensor DHT22 inicializado.");
+    }
+
+    void loop() {
+      float temperatura = dht.obtenerTemperatura();
+      float humedad = dht.obtenerHumedad();
+
+      if (isnan(temperatura) || isnan(humedad)) {
+        Serial.println("Error al leer el sensor DHT22.");
+        delay(2000); // Espera antes de reintentar la lectura
+        return;
+      }
+
+      Serial.print("Temperatura: ");
+      Serial.print(temperatura);
+      Serial.println(" °C");
+
+      Serial.print("Humedad: ");
+      Serial.print(humedad);
+      Serial.println(" %");
+
+      delay(2000);
+    }
+    ```
+
+## Constructor y Métodos Públicos
 
 ### Constructor
 
-Una vez incluida la librería, usamos el constructor para crear el objeto del módulo **DHT22**, y definimos el pin al que está conectado el sensor:
+* `MentorBitDHT22(uint8_t pin = 0)`: Crea un objeto `MentorBitDHT22`.
+    * `pin`: Número de pin al que está conectado el sensor DHT22. Si no se especifica, se asume que no está conectado a ningún pin inicialmente.
 
-```cpp
-MentorBitDHT22 dht22(PIN_SENSOR);
-```
+### Métodos
 
-Donde `PIN_SENSOR` es el pin al que está conectado el sensor **DHT22**.
+* `float obtenerTemperatura()`: Lee la temperatura en grados Celsius.
+* `float obtenerHumedad()`: Lee la humedad relativa en porcentaje.
 
-### Uso
+### Métodos Privados
 
-Con el objeto `dht22` definido, podemos obtener la lectura de la temperatura y la humedad utilizando las funciones `obtenerTemperatura()` y `obtenerHumedad()`:
-
-#### Obtener Temperatura
-
-```cpp
-float temperatura = dht22.obtenerTemperatura();
-```
-
-Esta función devuelve el valor de la temperatura en grados Celsius.
-
-#### Obtener Humedad
-
-```cpp
-float humedad = dht22.obtenerHumedad();
-```
-
-Esta función devuelve el valor de la humedad en porcentaje.
-
-### Configuración de puertos
-
-Si deseas configurar puertos personalizados, puedes usar la función `configPort()` para asignar los pines y configuraciones de puertos que necesitas:
-
-```cpp
-Port port;
-port.gpios[0] = PIN_SENSOR;  // Pin de conexión
-dht22.configPort(port);
-```
-
-Donde `port` es un objeto de tipo `Port` que contiene las configuraciones necesarias.
-
-## Atributos
-
-- `PIN_SENSOR`: Define el pin al que está conectado el sensor **DHT22**.
-
+* `void _reiniciarDHT()`: Re-inicializa el sensor DHT22.
