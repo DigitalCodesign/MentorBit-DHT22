@@ -4,7 +4,7 @@ Esta librería está diseñada para que puedas medir la temperatura y la humedad
 
 Si estás empezando en el mundo de la electrónica, ¡no te preocupes! MentorBit está pensado para que aprender sea fácil y divertido. Esta placa ya incluye un montón de componentes (LEDs, pulsadores, pantallas, etc.) y utiliza conectores especiales (JST) para que puedas añadir nuevos sensores y módulos sin tener que pelearte con un montón de cables. Pásate por nuestra web para saber más de MentorBit y nuestros productos [pinchando aquí](https://digitalcodesign.com/).
 
-![Render del Módulo MentorBit de sensor DHT-11.](https://github.com/DigitalCodesign/MentorBit-DHT22/blob/main/assets/DHT-22_Module.png)
+![Render del Módulo MentorBit de sensor DHT-22.](https://github.com/DigitalCodesign/MentorBit-DHT22/blob/main/assets/DHT-22_Module.png)
 
 Con esta librería, podrás obtener lecturas climáticas fiables, ideales para proyectos que requieren un control ambiental más exigente.
 
